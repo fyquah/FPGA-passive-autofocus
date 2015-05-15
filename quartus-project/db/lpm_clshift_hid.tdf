@@ -1,0 +1,58 @@
+--lpm_clshift CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" LPM_PIPELINE=1 LPM_SHIFTTYPE="LOGICAL" LPM_WIDTH=10 LPM_WIDTHDIST=4 clock data distance result
+--VERSION_BEGIN 13.0 cbx_lpm_clshift 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ  VERSION_END
+
+
+-- Copyright (C) 1991-2013 Altera Corporation
+--  Your use of Altera Corporation's design tools, logic functions 
+--  and other software and tools, and its AMPP partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Altera Program License 
+--  Subscription Agreement, Altera MegaCore Function License 
+--  Agreement, or other applicable license agreement, including, 
+--  without limitation, that your use is for the sole purpose of 
+--  programming logic devices manufactured by Altera and sold by 
+--  Altera or its authorized distributors.  Please refer to the 
+--  applicable agreement for further details.
+
+
+
+--synthesis_resources = lut 11 
+SUBDESIGN lpm_clshift_hid
+( 
+	clock	:	input;
+	data[9..0]	:	input;
+	distance[3..0]	:	input;
+	result[9..0]	:	output;
+) 
+VARIABLE 
+	direction_reg[0..0] : dffe;
+	pipe_wl1c[9..0] : dffe;
+	aclr	: NODE;
+	clken	: NODE;
+	direction	: NODE;
+	direction_w[1..0]	: WIRE;
+	pad_w[7..0]	: WIRE;
+	sbit_w[49..0]	: WIRE;
+	sel_w[3..0]	: WIRE;
+
+BEGIN 
+	direction_reg[].clk = clock;
+	direction_reg[].clrn = (! aclr);
+	direction_reg[].d = ( direction_w[0..0]);
+	direction_reg[].ena = clken;
+	pipe_wl1c[].clk = clock;
+	pipe_wl1c[].clrn = (! aclr);
+	pipe_wl1c[].d = ((((sel_w[3..3] & (! direction_w[0..0])) & ( sbit_w[31..30], pad_w[7..0])) # ((sel_w[3..3] & direction_w[0..0]) & ( pad_w[7..0], sbit_w[39..38]))) # ((! sel_w[3..3]) & sbit_w[39..30]));
+	pipe_wl1c[].ena = clken;
+	aclr = GND;
+	clken = VCC;
+	direction = GND;
+	direction_w[] = ( direction_reg[0..0].q, direction);
+	pad_w[] = B"00000000";
+	result[9..0] = sbit_w[49..40];
+	sbit_w[] = ( pipe_wl1c[].q, ((((sel_w[2..2] & (! direction_w[0..0])) & ( sbit_w[25..20], pad_w[3..0])) # ((sel_w[2..2] & direction_w[0..0]) & ( pad_w[3..0], sbit_w[29..24]))) # ((! sel_w[2..2]) & sbit_w[29..20])), ((((sel_w[1..1] & (! direction_w[0..0])) & ( sbit_w[17..10], pad_w[1..0])) # ((sel_w[1..1] & direction_w[0..0]) & ( pad_w[1..0], sbit_w[19..12]))) # ((! sel_w[1..1]) & sbit_w[19..10])), ((((sel_w[0..0] & (! direction_w[0..0])) & ( sbit_w[8..0], pad_w[0..0])) # ((sel_w[0..0] & direction_w[0..0]) & ( pad_w[0..0], sbit_w[9..1]))) # ((! sel_w[0..0]) & sbit_w[9..0])), data[]);
+	sel_w[] = ( distance[3..0]);
+END;
+--VALID FILE

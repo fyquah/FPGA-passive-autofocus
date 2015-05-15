@@ -1,0 +1,62 @@
+--altaccumulate CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48 DEVICE_FAMILY="Cyclone III" EXTRA_LATENCY=2 LPM_REPRESENTATION="UNSIGNED" WIDTH_IN=10 WIDTH_OUT=30 aclr clock data result
+--VERSION_BEGIN 13.0 cbx_altaccumulate 2013:06:12:18:03:43:SJ cbx_cycloneii 2013:06:12:18:03:43:SJ cbx_lpm_add_sub 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ cbx_stratix 2013:06:12:18:03:43:SJ cbx_stratixii 2013:06:12:18:03:43:SJ  VERSION_END
+
+
+-- Copyright (C) 1991-2013 Altera Corporation
+--  Your use of Altera Corporation's design tools, logic functions 
+--  and other software and tools, and its AMPP partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Altera Program License 
+--  Subscription Agreement, Altera MegaCore Function License 
+--  Agreement, or other applicable license agreement, including, 
+--  without limitation, that your use is for the sole purpose of 
+--  programming logic devices manufactured by Altera and sold by 
+--  Altera or its authorized distributors.  Please refer to the 
+--  applicable agreement for further details.
+
+
+FUNCTION cycloneiii_lcell_comb (cin, dataa, datab, datac, datad)
+WITH ( DONT_TOUCH, LUT_MASK, SUM_LUTC_INPUT)
+RETURNS ( combout, cout);
+
+--synthesis_resources = lut 30 reg 92 
+SUBDESIGN accum_rgg
+( 
+	aclr	:	input;
+	clock	:	input;
+	data[9..0]	:	input;
+	result[29..0]	:	output;
+) 
+VARIABLE 
+	acc_cella[29..0] : cycloneiii_lcell_comb
+		WITH (
+			LUT_MASK = "96E8",
+			SUM_LUTC_INPUT = "cin"
+		);
+	acc_ff0a[29..0] : dffe;
+	acc_ff1a[29..0] : dffe;
+	acc_ff2a[29..0] : dffe;
+	carryout_reg1a[1..0] : dffe;
+
+BEGIN 
+	acc_cella[].cin = ( acc_cella[28..20].cout, carryout_reg1a[1..1].q, acc_cella[18..10].cout, carryout_reg1a[0..0].q, acc_cella[8..0].cout, B"0");
+	acc_cella[].dataa = ( acc_ff2a[29..20].q, acc_ff1a[19..10].q, acc_ff0a[9..0].q);
+	acc_cella[].datab = ( acc_ff1a[29..20].q, acc_ff0a[19..10].q, data[9..0]);
+	acc_cella[].datad = B"111111111111111111111111111111";
+	acc_ff0a[].clk = clock;
+	acc_ff0a[].clrn = (! aclr);
+	acc_ff0a[].d = ( B"00000000000000000000", acc_cella[9..0].combout);
+	acc_ff1a[].clk = clock;
+	acc_ff1a[].clrn = (! aclr);
+	acc_ff1a[].d = ( acc_ff0a[29..20].q, acc_cella[19..10].combout, acc_ff0a[9..0].q);
+	acc_ff2a[].clk = clock;
+	acc_ff2a[].clrn = (! aclr);
+	acc_ff2a[].d = ( acc_cella[29..20].combout, acc_ff1a[19..0].q);
+	carryout_reg1a[].clk = clock;
+	carryout_reg1a[].clrn = (! aclr);
+	carryout_reg1a[].d = ( acc_cella[19].cout, acc_cella[9].cout);
+	result[] = acc_ff2a[].q;
+END;
+--VALID FILE

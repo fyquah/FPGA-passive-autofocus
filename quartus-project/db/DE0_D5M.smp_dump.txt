@@ -1,0 +1,18 @@
+
+State Machine - |TOP_DE0_CAMERA_MOUSE|edge_counter:inst28|edge_counter_core:edge_counter_core_inst|edge_counter_core_fsm:edge_counter_core_fsm_inst|state_var
+Name state_var.st_main 
+state_var.st_core_rlp 0 
+state_var.st_main 1 
+
+State Machine - |TOP_DE0_CAMERA_MOUSE|ps2:inst6|cur_state
+Name cur_state.trans cur_state.pulldat cur_state.pullclk cur_state.listen 
+cur_state.listen 0 0 0 0 
+cur_state.pullclk 0 0 1 1 
+cur_state.pulldat 0 1 0 1 
+cur_state.trans 1 0 0 1 
+
+State Machine - |TOP_DE0_CAMERA_MOUSE|DE0_D5M:inst|I2C_CCD_Config:u8|mSetup_ST
+Name mSetup_ST.0000 mSetup_ST.0010 mSetup_ST.0001 
+mSetup_ST.0000 0 0 0 
+mSetup_ST.0001 1 0 1 
+mSetup_ST.0010 1 1 0 

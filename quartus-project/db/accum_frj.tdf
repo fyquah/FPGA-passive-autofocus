@@ -1,0 +1,68 @@
+--altaccumulate CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48 DEVICE_FAMILY="Cyclone III" EXTRA_LATENCY=1 LPM_REPRESENTATION="UNSIGNED" WIDTH_IN=10 WIDTH_OUT=35 aclr add_sub(vcc) cin clken(vcc) clock data result sload(gnd)
+--VERSION_BEGIN 13.0 cbx_altaccumulate 2013:06:12:18:03:43:SJ cbx_cycloneii 2013:06:12:18:03:43:SJ cbx_lpm_add_sub 2013:06:12:18:03:43:SJ cbx_mgl 2013:06:12:18:05:10:SJ cbx_stratix 2013:06:12:18:03:43:SJ cbx_stratixii 2013:06:12:18:03:43:SJ  VERSION_END
+
+
+-- Copyright (C) 1991-2013 Altera Corporation
+--  Your use of Altera Corporation's design tools, logic functions 
+--  and other software and tools, and its AMPP partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Altera Program License 
+--  Subscription Agreement, Altera MegaCore Function License 
+--  Agreement, or other applicable license agreement, including, 
+--  without limitation, that your use is for the sole purpose of 
+--  programming logic devices manufactured by Altera and sold by 
+--  Altera or its authorized distributors.  Please refer to the 
+--  applicable agreement for further details.
+
+
+FUNCTION cycloneiii_lcell_comb (cin, dataa, datab, datac, datad)
+WITH ( DONT_TOUCH, LUT_MASK, SUM_LUTC_INPUT)
+RETURNS ( combout, cout);
+
+--synthesis_resources = lut 35 reg 71 
+SUBDESIGN accum_frj
+( 
+	aclr	:	input;
+	add_sub	:	input;
+	cin	:	input;
+	clken	:	input;
+	clock	:	input;
+	data[9..0]	:	input;
+	result[34..0]	:	output;
+	sload	:	input;
+) 
+VARIABLE 
+	acc_cella[34..0] : cycloneiii_lcell_comb
+		WITH (
+			LUT_MASK = "96E8",
+			SUM_LUTC_INPUT = "cin"
+		);
+	acc_ff0a[34..0] : dffe;
+	acc_ff1a[34..0] : dffe;
+	carryout_reg1a[0..0] : dffe;
+	const_node_add_sub	: NODE;
+	const_node_clken	: NODE;
+	const_node_sload	: NODE;
+
+BEGIN 
+	acc_cella[].cin = ( acc_cella[33..17].cout, carryout_reg1a[0..0].q, acc_cella[15..0].cout, cin);
+	acc_cella[].dataa = ( acc_ff1a[34..17].q, acc_ff0a[16..0].q);
+	acc_cella[].datab = ( acc_ff0a[34..17].q, B"0000000", data[]);
+	acc_cella[].datad = B"11111111111111111111111111111111111";
+	acc_ff0a[].clk = clock;
+	acc_ff0a[].clrn = (! aclr);
+	acc_ff0a[].d = ( B"000000000000000000", acc_cella[16..0].combout);
+	acc_ff1a[].clk = clock;
+	acc_ff1a[].clrn = (! aclr);
+	acc_ff1a[].d = ( acc_cella[34..17].combout, acc_ff0a[16..0].q);
+	carryout_reg1a[].clk = clock;
+	carryout_reg1a[].clrn = (! aclr);
+	carryout_reg1a[].d = ( acc_cella[16].cout);
+	const_node_add_sub = add_sub;
+	const_node_clken = clken;
+	result[] = acc_ff1a[].q;
+	const_node_sload = sload;
+END;
+--VALID FILE

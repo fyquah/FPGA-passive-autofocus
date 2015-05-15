@@ -1,0 +1,216 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 240 288)
+	(text "VGA_Controller" (rect 5 0 72 12)(font "Arial" ))
+	(text "inst" (rect 8 256 20 268)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "iRed[9..0]" (rect 0 0 38 12)(font "Arial" ))
+		(text "iRed[9..0]" (rect 21 27 59 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "iGreen[9..0]" (rect 0 0 46 12)(font "Arial" ))
+		(text "iGreen[9..0]" (rect 21 43 67 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "iBlue[9..0]" (rect 0 0 37 12)(font "Arial" ))
+		(text "iBlue[9..0]" (rect 21 59 58 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "iCLK" (rect 0 0 21 12)(font "Arial" ))
+		(text "iCLK" (rect 21 75 42 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 1))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "iRST_N" (rect 0 0 34 12)(font "Arial" ))
+		(text "iRST_N" (rect 21 91 55 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 1))
+	)
+	(port
+		(pt 224 32)
+		(output)
+		(text "oRequest" (rect 0 0 38 12)(font "Arial" ))
+		(text "oRequest" (rect 165 27 203 39)(font "Arial" ))
+		(line (pt 224 32)(pt 208 32)(line_width 1))
+	)
+	(port
+		(pt 224 48)
+		(output)
+		(text "oVGA_R[9..0]" (rect 0 0 62 12)(font "Arial" ))
+		(text "oVGA_R[9..0]" (rect 141 43 203 55)(font "Arial" ))
+		(line (pt 224 48)(pt 208 48)(line_width 3))
+	)
+	(port
+		(pt 224 64)
+		(output)
+		(text "oVGA_G[9..0]" (rect 0 0 61 12)(font "Arial" ))
+		(text "oVGA_G[9..0]" (rect 142 59 203 71)(font "Arial" ))
+		(line (pt 224 64)(pt 208 64)(line_width 3))
+	)
+	(port
+		(pt 224 80)
+		(output)
+		(text "oVGA_B[9..0]" (rect 0 0 60 12)(font "Arial" ))
+		(text "oVGA_B[9..0]" (rect 143 75 203 87)(font "Arial" ))
+		(line (pt 224 80)(pt 208 80)(line_width 3))
+	)
+	(port
+		(pt 224 96)
+		(output)
+		(text "oVGA_H_SYNC" (rect 0 0 74 12)(font "Arial" ))
+		(text "oVGA_H_SYNC" (rect 129 91 203 103)(font "Arial" ))
+		(line (pt 224 96)(pt 208 96)(line_width 1))
+	)
+	(port
+		(pt 224 112)
+		(output)
+		(text "oVGA_V_SYNC" (rect 0 0 75 12)(font "Arial" ))
+		(text "oVGA_V_SYNC" (rect 128 107 203 119)(font "Arial" ))
+		(line (pt 224 112)(pt 208 112)(line_width 1))
+	)
+	(port
+		(pt 224 128)
+		(output)
+		(text "oVGA_SYNC" (rect 0 0 61 12)(font "Arial" ))
+		(text "oVGA_SYNC" (rect 142 123 203 135)(font "Arial" ))
+		(line (pt 224 128)(pt 208 128)(line_width 1))
+	)
+	(port
+		(pt 224 144)
+		(output)
+		(text "oVGA_BLANK" (rect 0 0 68 12)(font "Arial" ))
+		(text "oVGA_BLANK" (rect 135 139 203 151)(font "Arial" ))
+		(line (pt 224 144)(pt 208 144)(line_width 1))
+	)
+	(port
+		(pt 224 160)
+		(output)
+		(text "oVGA_CLOCK" (rect 0 0 68 12)(font "Arial" ))
+		(text "oVGA_CLOCK" (rect 135 155 203 167)(font "Arial" ))
+		(line (pt 224 160)(pt 208 160)(line_width 1))
+	)
+	(port
+		(pt 224 176)
+		(output)
+		(text "oVGA_X[11..0]" (rect 0 0 62 12)(font "Arial" ))
+		(text "oVGA_X[11..0]" (rect 141 171 203 183)(font "Arial" ))
+		(line (pt 224 176)(pt 208 176)(line_width 3))
+	)
+	(port
+		(pt 224 192)
+		(output)
+		(text "oVGA_Y[11..0]" (rect 0 0 63 12)(font "Arial" ))
+		(text "oVGA_Y[11..0]" (rect 140 187 203 199)(font "Arial" ))
+		(line (pt 224 192)(pt 208 192)(line_width 3))
+	)
+	(port
+		(pt 224 208)
+		(output)
+		(text "oVGA_ACTIVE" (rect 0 0 73 12)(font "Arial" ))
+		(text "oVGA_ACTIVE" (rect 130 203 203 215)(font "Arial" ))
+		(line (pt 224 208)(pt 208 208)(line_width 1))
+	)
+	(port
+		(pt 224 224)
+		(output)
+		(text "gotSignal" (rect 0 0 34 12)(font "Arial" ))
+		(text "gotSignal" (rect 169 219 203 231)(font "Arial" ))
+		(line (pt 224 224)(pt 208 224)(line_width 1))
+	)
+	(parameter
+		"H_SYNC_CYC"
+		"96"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"H_SYNC_BACK"
+		"48"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"H_SYNC_ACT"
+		"640"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"H_SYNC_FRONT"
+		"16"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"H_SYNC_TOTAL"
+		"800"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"V_SYNC_CYC"
+		"2"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"V_SYNC_BACK"
+		"33"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"V_SYNC_ACT"
+		"480"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"V_SYNC_FRONT"
+		"10"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"V_SYNC_TOTAL"
+		"525"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"X_START"
+		""
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"Y_START"
+		""
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 208 256)(line_width 1))
+	)
+	(annotation_block (parameter)(rect 240 -64 340 16))
+)

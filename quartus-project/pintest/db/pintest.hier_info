@@ -1,0 +1,5 @@
+|pintest
+ARDUINO[17] <= Switches[9].DB_MAX_OUTPUT_PORT_TYPE
+Switches[9] => ARDUINO[17].DATAIN
+
+
